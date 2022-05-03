@@ -12,9 +12,10 @@ const App = () => {
     isLoggedIn: false,
     user_id: null,
     language: null,
-    chats: null, // array 
-    messages: null,
-    friend_language: null
+    chats: [], // array 
+    messages: [],
+    friend_language: null,
+    current_room_id: null
   });
 
   return (
