@@ -13,7 +13,7 @@ const SignupPage = (props) => {
       language: document.getElementById('selectLanguage').value
     };
 
-    axios.post('/signup', signUpInfo)
+    axios.post('http://localhost:3000/signup', signUpInfo)
       .then(function (response) {
         console.log(response);
       })
