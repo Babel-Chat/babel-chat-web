@@ -1,13 +1,30 @@
 const express = require("express");
 const app = express();
 const path = require('path');
+const cors = require("cors");
 const PORT = 3000;
-// Route Imports
+const loginRouter = require('./routers/loginRouter.js');
+const signupRouter = require('./routers/signupRouter.js');
 
+// WEBSOCKET RELATED
+const http = require("http");
+const { Server } = require("socket.io");
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:8080",
+    methods: ["GET", "POST", "PATCH", "DELETE"],
+  },
+});
 
 // Parsing
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Route Imports
+app.use('/login', loginRouter);
+app.use('/signup', signupRouter);
 
 // Landing
 app.get("/", (req, res) => {
