@@ -12,6 +12,7 @@ loginRouter.post('/',
   userController.checkUser,
     //then dbcontroller.checkUser
   dbController.checkUser,
+  dbController.getChats,
     // if login is successful, send to chat room?
   (req,res) =>{
     res.status(200).json(res.locals.data);
