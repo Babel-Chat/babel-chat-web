@@ -16,7 +16,6 @@ const LoginPage = (props) => {
     }
 
     axios.post('http://localhost:3000/login/', loginInfo)
-      .then(res => res.json())
       .then(data => {
         // props.state.isLoggedIn = data.true;
         // props.state.user_id = data.user_id;

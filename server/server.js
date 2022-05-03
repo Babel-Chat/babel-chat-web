@@ -6,6 +6,11 @@ const PORT = 3000;
 const loginRouter = require('./routers/loginRouter.js');
 const signupRouter = require('./routers/signupRouter.js');
 
+// Parsing
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 // WEBSOCKET RELATED
 const http = require("http");
 const { Server } = require("socket.io");
@@ -16,6 +21,14 @@ const io = new Server(server, {
     methods: ["GET", "POST", "PATCH", "DELETE"],
   },
 });
+
+io.on("connection", (socket) => {
+  console.log(`User connected: ${socket.id}`);
+  socket.on("send_message",(data) => { 
+    console.log(data)
+    socket.broadcast.emit('receive_message',data)
+  })
+})
 
 // Parsing
 app.use(cors());
@@ -53,6 +66,7 @@ app.use((err, req, res, next) => {
   return res.status(errorObj.status).send(errorObj.message);
 });
 
-app.listen(PORT, () => console.log(`Server listening on port ${PORT}`))
+// may need to change to server.listen
+server.listen(PORT, () => console.log(`Server listening on port ${PORT}`))
 
-module.exports = app
+// module.exports = server
