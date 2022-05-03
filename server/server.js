@@ -30,6 +30,12 @@ io.on("connection", (socket) => {
   })
 })
 
+// Parsing
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+// handle requests fro static files -> specify the root directory to serve static assets
+app.use(express.static('client'));
 
 // Route Imports
 app.use('/login', loginRouter);
@@ -40,8 +46,6 @@ app.get("/", (req, res) => {
   return res.status(200).sendFile(path.resolve(__dirname, '../index.html'))
 })
 
-// handle requests fro static files -> specify the root directory to serve static assets
-app.use(express.static(path.resolve(__dirname, '../client')));
 
 // create a route handler
 // app.use()

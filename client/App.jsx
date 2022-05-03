@@ -1,32 +1,31 @@
-import React, { Component } from 'react';
-import { render } from 'react-dom';
-import io from 'socket.io-client';
-import { useEffect } from 'react';
+import React, { Component, useState} from 'react';
+import { BrowserRouter as Router, Route, Routes, Link} from 'react-router-dom';
 
-//keep url same as the server
-const socket = io.connect("http://localhost:3000")
-
-const  App = () => {
-  
-  const sendMessage =() => {
-    socket.emit("send_message", {message: "hello joe"});
-  }
+import LoginPage from './pages/LoginPage';
+import SignUpPage from './pages/SignUpPage';
+import MainPage from './pages/MainPage';
 
 
-  useEffect(() => {
-    socket.on('recieve_message', (data) =>{
-      alert(data.message)
-    })
-  },[socket]);
+const App = () => {
+  // userInfo will contain the username, password, preferredLanguage
+  const [state, setState] = useState({
+    isLoggedIn: false,
+    user_id: null,
+    language: null,
+    chats: null, // array 
+    messages: null,
+    friend_language: null
+  });
 
   return (
-    <div id="App">
-      Delete this later. Do not commit me!
-      <input placeholder='Message...'/>
-      <button onClick={sendMessage}>Send Message</button>
-      
-    </div>
-  )
+    <Router>
+      <Routes>
+        <Route path='/' element={<LoginPage state={state} setState={setState} />} />
+        <Route path='/signup' element={<SignUpPage />} />
+        <Route path='/main' element={<MainPage state={state} setState={setState} />} />
+      </Routes>
+    </Router>
+  );
 }
 
 export default App;
