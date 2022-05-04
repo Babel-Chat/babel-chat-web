@@ -7,10 +7,10 @@ const socket = io.connect("http://localhost:3000")
 
 
 const ChatRoom = (props) => {
-  const { messages, current_room_id, language, username} = props; // messages: an array of message objects {text: string, created_at: timestamp, created_by: username}
-
+  const { state, setState } = props; // messages: an array of message objects {text: string, created_at: timestamp, created_by: username}
+  console.log('State Upon Chat Room Rerender: ', state);
   const messagesBox = [];
-  messages.forEach(el => {
+  state.messages.forEach(el => {
     messagesBox.push(
     <div className="message_box">
       <div className="created_by"><p>{el.created_by}:</p></div>
@@ -20,34 +20,43 @@ const ChatRoom = (props) => {
     );
   });
 
-  const sendMessage =(e) => {
+  const sendMessage = (e) => {
     e.preventDefault();
-    socket.emit("send_message", {message: e.target.value});
+    console.log('Username: ', state.username);
+    socket.emit("send_message", {text: document.getElementById('current_message').value,
+    created_by: state.username, created_at: new Date().toLocaleString()});
+    const newState = JSON.parse(JSON.stringify(state));
+    newState.messages.push({text: document.getElementById('current_message').value,
+    created_by: state.username, created_at: new Date().toLocaleString()});
+    setState(newState);
+    document.getElementById('current_message').value = '';
   }
+
   useEffect(() =>{
     socket.on('receive_message', (data) =>{
-      alert(data.message)
+      console.log('data: ', data);
+      console.log('state before parse: ', state.messages)
+      // current state.message is empty array
+      const newerState = JSON.parse(JSON.stringify(state));
+      console.log('before data push: ', newerState.messages);
+      newerState.messages.push(data);
+      console.log('after data push: ', newerState.messages)
+      setState(newerState);
+      // setState(state => ({...state, messages: newerState}));
+
+      // messages.push(data);
+
     })
-  },[socket]);
+  },[socket, state]);
 
-  // example of sending the message in app
-  // const  App = () => {
-  //   const sendMessage =() => {
-  //     socket.emit("send_message", {message: "hello joe"});
-  //   }
-  //   useEffect(() =>{
-  //     socket.on('recieve_message', (data) =>{
-  //       alert(data.message)
-  //     })
-  //   },[socket]);
 
-    /////example above
 
   const handleSendMessage = () => { 
+    console.log('current room id: ', current_room_id)
     axios.post('http://localhost:3000/messages', { 
       room_id: current_room_id,
-      text: document.getElementById('message').value,
-      created_by: username,
+      text: document.getElementById('current_message').value,
+      created_by: state.username,
       created_at: new Date().toLocaleString(),
     })
     .then(function (response) {
@@ -59,7 +68,7 @@ const ChatRoom = (props) => {
   };
 
 
-  if (messages.length){
+  if (state.messages.length){
     return (
       <div className="chat_box_container">
         <div className="message_box_container">
@@ -67,7 +76,7 @@ const ChatRoom = (props) => {
         </div>
         <div className="message_send_container">
           <form>
-            <input id="message" type="text"></input>
+            <input id="current_message" type="text"></input>
             <button type="submit" onClick={sendMessage}>Submit</button>
           </form>
         </div>

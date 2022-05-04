@@ -14,7 +14,7 @@ const App = () => {
     username: null,
     language: null,
     chats: [], // array 
-    messages: [{created_by: 'myles', created_at: 'today', text: 'hello'}],
+    messages: [],
     friend_language: null,
     current_room_id: null
   });
