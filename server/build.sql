@@ -12,7 +12,7 @@ user_id1 INTEGER,
 user_id2 INTEGER,
 FOREIGN KEY (user_id1) REFERENCES users(user_id),
 FOREIGN KEY (user_id2) REFERENCES users(user_id),
-en VARCHAR NOT NULL,
+en   NOT NULL,
 es VARCHAR NOT NULL,
 ko VARCHAR NOT NULL
 )

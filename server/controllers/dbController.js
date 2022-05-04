@@ -13,9 +13,33 @@ const dbController = {};
   }]
 
   */
+dbController.getMessages = async (req, res, next) => {
+  const { room_id, language } = req.params;
+  const params = [room_id];
+
+  try {
+    const messageQuery = `
+    SELECT * FROM chatrooms
+    WHERE room_id=$1;`
+    
+    const messages = await db.query(messageQuery, params);
+    console.log('Messages: ', JSON.parse(messages.rows[0][language]));
+    res.locals.data = JSON.parse(messages.rows[0][language]);
+    return next();
+
+  } catch (error) {
+    return next({
+      log: `Express error in dbController.getMessages middleware ${error}`,
+      status: 400,
+      message: {
+        error: `dbController.getMessages: Error: ${error}`
+      }
+    });  
+  }
+}
 
 dbController.getChats = async (req, res, next) => {
-  const { user_id, language } = res.locals.loginInfo;
+  const { user_id, language, username } = res.locals.loginInfo;
   params = [ user_id ];
 
   try {
@@ -63,7 +87,7 @@ dbController.getChats = async (req, res, next) => {
           `
           const friendInfo = await db.query(friendQuery, friendParams)
           chat.friend = friendInfo.rows[0].name;
-          chat.friendLanguage = friendInfo.rows[0].language;
+          chat.friendLanguage = friendInfo.rows[0].language;""
         } catch (error) {
           return next({
             log: `Express error in dbController.getChats middleware ${error}`,
@@ -81,6 +105,7 @@ dbController.getChats = async (req, res, next) => {
     // const room_id = chatRoomInfo.rows.room_id
 
     const loginResults = {
+      username: username,
       user_id: user_id,
       language: language,
       chats: chats
@@ -119,6 +144,7 @@ dbController.checkUser = async (req, res, next) => {
     }
     const loginInfo = {
       user_id: userInfo.rows[0].user_id,
+      username: username,
       language: userInfo.rows[0].language,
       // add chats array here
     }
