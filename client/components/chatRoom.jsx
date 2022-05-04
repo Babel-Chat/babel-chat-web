@@ -7,17 +7,28 @@ const socket = io.connect("http://localhost:3000")
 
 
 const ChatRoom = (props) => {
-  const { state, setState } = props; // messages: an array of message objects {text: string, created_at: timestamp, created_by: username}
+  const { state, setState, selectedRoom} = props; // messages: an array of message objects {text: string, created_at: timestamp, created_by: username}
   console.log('State Upon Chat Room Rerender: ', state);
   const messagesBox = [];
   state.messages.forEach(el => {
+    if (el.created_by === state.username){
     messagesBox.push(
-    <div className="message_box">
+    <div className="message_box_sent">
       <div className="created_by"><p>{el.created_by}:</p></div>
       <div className="message_text"><p>{el.text}</p></div>
       <div className="created_at"><p>{el.created_at}</p></div>
     </div>
     );
+    }
+    else {
+      messagesBox.push(
+        <div className="message_box_received">
+          <div className="created_by"><p>{el.created_by}:</p></div>
+          <div className="message_text"><p>{el.text}</p></div>
+          <div className="created_at"><p>{el.created_at}</p></div>
+        </div>
+        );
+    }
   });
 
   // const joinRoom = () => {
@@ -81,7 +92,7 @@ const ChatRoom = (props) => {
   // };
 
 
-  // if (state.messages.length){
+  if (selectedRoom){
     return (
       <div className="chat_box_container">
         <div className="message_box_container">
@@ -96,11 +107,11 @@ const ChatRoom = (props) => {
       </div>
     )
     }
-  // else {
-  //   return (
-  //     <p>No messages!</p>
-  //   )
-  // }
-// };
+  else {
+    return (
+      <p></p>
+    )
+  }
+};
 
 export default ChatRoom; 

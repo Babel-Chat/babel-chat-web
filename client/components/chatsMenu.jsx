@@ -3,7 +3,7 @@ import axios from 'axios';
 
 
 const ChatsMenu = (props) => {
-  const {setState, state} = props;
+  const {setState, state, setSelectedRoom} = props;
   console.log('chats: ', state.chats);
   
   const chatSelectHandler = (room_id, friend_language) => {
@@ -20,6 +20,7 @@ const ChatsMenu = (props) => {
       newState.current_room_id = room_id;
       newState.friend_language = friend_language;
       setState(newState);
+      setSelectedRoom(true);
     })
   };
   // create a buttons array to store JSX elements of type button that contain the name of each friend 
