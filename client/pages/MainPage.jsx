@@ -5,6 +5,7 @@ import ChatsMenu from '../components/chatsMenu';
 import ChatRoom from '../components/chatRoom';
 
 const MainPage = (props) => {
+  const {state, setState} = props;
   console.log('Props: ', props);
 
   return (
@@ -14,8 +15,8 @@ const MainPage = (props) => {
         <h1>International Chat</h1>
       </div>
       <div> 
-        <ChatRoom messages={props.state.messages} setState={props.setState}/>
-        <ChatsMenu state={props.state} chats={props.state.chats} language={props.state.language} setState={props.setState}/>
+        <ChatRoom key={'chatroom'} state={state} setState={setState}/>
+        <ChatsMenu key={'chatmenu'} state={state} setState={setState}/>
       </div>
     </div>
   )
