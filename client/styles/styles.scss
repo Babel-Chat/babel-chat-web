@@ -1,48 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+
+$primary: rgb(30, 117, 116);
+$primaryLight: rgba(30, 117, 116, 0.5);
+$secondary: rgb(250, 118, 182);
+$hyperlink: rgb(161, 255, 253);
+$buttonColor: rgb(2, 155, 155);
+$darkPrimary: rgb(19, 71, 71);
+
 * {
   padding: 0px;
   margin: 0px;
-  background-color: #FAF9F6;
-  
+  font-family: 'Varela Round', sans-serif;
+  color: #FFF;
 }
 
-body {
+html {
+  background: linear-gradient(120deg, $primary, $secondary);
+  overflow: hidden;
+  height: 100vh;
+}
+
+h1 {
+  font-size: 2.5em;
+  color: #FFF;
+  text-align: center;
+}
+
+#login-page, #signup-page {
   display: flex;
-  justify-content: center;
-  height: 60vh;
   align-items: center;
+  justify-content: center;
+  height: 100vh;
 }
 
-#login-page {
+#login-page-container, #signup-page-container {
+  padding: 1em;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 50px;
+  gap: 4em;
   border: solid line;
   width: 40vw;
   height: 50vh;
-  border-radius: 80px;
+  border-radius: 2em;
   min-height: 400px;
-  box-shadow: 0px 0px 20px;
+  box-shadow: 1px 1px 12px rgba(255, 255, 255, 0.5);
 
-  #login-inputs {
+  #login-inputs, #signup-input {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 
     input {
-      height: 20px;
+      margin: 0.3em;
+      padding-left: 0.5em;
+      height: 30px;
+      width: 300px;
+      border: 0px;
+      outline: none;
+      border-radius: 0.2em;
+      background-color: rgba(255, 255, 255, 0.5);
+      color: rgba(255, 255, 255, 0.9);
+    }
+    
+    input:focus {
+      background-color: rgba(255, 255, 255, 0.6);
+    }
+
+    .login-button {
+      padding: 0 50px;
+      height: 30px;
+      margin: 10px;
+      background: rgba(255, 255, 255, 0.7);
+      border: none;
+      border-radius: 5px;
+      transition-duration: .3s;
+      color: $primary;
+      font-weight: bold;
+    }
+
+    .login-button:hover {
+      background: $primaryLight;
+      color: rgba(255, 255, 255, 0.9);
+      box-shadow: 1px 1px 12px rgba(255, 255, 255, 0.5);
+
+    } 
+  }
+
+  #sign-up-message {
+    color: #FFF;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    
+    p {
+      font-size: 1em;
+      padding-bottom: 0.5em;
+
+    }
+
+    a:link {
+      color: $hyperlink;
+    }
+    a:visited, a:hover {
+      color: $hyperlink;
     }
   }
 }
 
-#main-page{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+#signup-page{
+
+
 }
+
 
 #chats {
   display: flex;
@@ -53,16 +125,16 @@ body {
 .userButton {
   padding: 20px 50px;
   margin: 10px;
-  background: white;
-  border: 1px solid cyan;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid $buttonColor;
   border-radius: 5px;
   transition-duration: .3s;
-  color: rgb(17, 17, 17);
+  color: $buttonColor;
   font-weight: bold;
 }
 
 .userButton:hover {
-  background: cyan;
+  background: $buttonColor;
   color: white;
 } 
 
@@ -71,4 +143,70 @@ body {
   border: 1px solid rgb(17, 17, 17);
   border-radius: 10px;
   overflow: scroll;
+}
+
+.message_box_container{
+  display: flex;
+  flex-direction: column;
+}
+
+.message_box_sent {
+  align-self: flex-start;
+  border: 1px solid rgb(94, 94, 255);
+  background: rgb(94, 94, 255);
+  border-radius: 15px;
+  padding: 10px;
+}
+
+.message_box_received {
+  align-self: flex-end;
+  border: 1px solid rgb(161,161,161);
+  padding: 10px;
+  border-radius: 15px;
+  background: rgb(161, 161, 161);
+}
+
+.created_by {
+  font-weight: bold;
+}
+
+.message_text {
+  color: rgb(24, 24, 24);
+
+}
+
+.created_at {
+  font-size: 10px;
+}
+
+#main-page-container{
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  gap: 10em;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr;
+  grid-template-areas: "head head head head"
+                       "null room room menu"
+                       "null room room menu"; 
+}
+
+#null-div {
+  grid-area: null;
+}
+
+#main-page-header{
+  grid-area: head;
+}
+
+#main-chat-room{
+  grid-area: room;
+}
+
+#main-chat-menu{
+  grid-area: menu;
+}
+
+#header-titles {
+  display: flex;
 }

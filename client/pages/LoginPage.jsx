@@ -35,17 +35,19 @@ const LoginPage = (props) => {
     }
   return (
     <div id="login-page">
-      <h1>International Chat</h1>
-      <div className="login-container">
-        <form id="login-inputs">
-          <input id="username" type="text" placeholder="Username" required></input>
-          <input id="password" type="password" placeholder="Password" required></input>
-          <button id="login-sumbit" onClick={handleLogin}>Log In</button>
-        </form>
-      </div>
-      <div id="sign-up-message">
-        <p>Don't have an account yet?</p>
-        <Link to="/signup">SignUp</Link>
+      <div id="login-page-container">
+        <h1>International Chat</h1>
+        <div className="login-container">
+          <form id="login-inputs">
+            <input id="username" type="text" placeholder="Username" required></input>
+            <input id="password" type="password" placeholder="Password" required></input>
+            <button className="login-button" id="login-sumbit" onClick={handleLogin}>Log In</button>
+          </form>
+        </div>
+        <div id="sign-up-message">
+          <p>Don't have an account yet?</p>
+          <Link to="/signup">SignUp</Link>
+        </div>
       </div>
     </div>
   )
