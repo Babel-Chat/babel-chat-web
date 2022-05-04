@@ -24,6 +24,7 @@ const LoginPage = (props) => {
         newState.user_id = data.data.user_id;
         newState.language = data.data.language;
         newState.chats = data.data.chats;
+        newState.username = data.data.username;
         setState(newState);
         
         navigate('/main');
@@ -38,7 +39,7 @@ const LoginPage = (props) => {
       <div className="login-container">
         <form id="login-inputs">
           <input id="username" type="text" placeholder="Username" required></input>
-          <input id="password" type="text" placeholder="Password" required></input>
+          <input id="password" type="password" placeholder="Password" required></input>
           <button id="login-sumbit" onClick={handleLogin}>Log In</button>
         </form>
       </div>
