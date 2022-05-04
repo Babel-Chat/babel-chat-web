@@ -11,9 +11,10 @@ const App = () => {
   const [state, setState] = useState({
     isLoggedIn: false,
     user_id: null,
+    username: null,
     language: null,
     chats: [], // array 
-    messages: [],
+    messages: [{created_by: 'myles', created_at: 'today', text: 'hello'}],
     friend_language: null,
     current_room_id: null
   });

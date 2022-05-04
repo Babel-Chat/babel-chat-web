@@ -44,6 +44,7 @@ const SignupPage = (props) => {
               </select>
           </div>
             <button id="signup-submit" onClick={submitHandler}>Sign Up</button>
+            <button><Link to="/">Login</Link></button>
         </form>
       </div>
     </div>
