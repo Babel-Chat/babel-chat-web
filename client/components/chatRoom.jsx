@@ -20,17 +20,30 @@ const ChatRoom = (props) => {
     );
   });
 
+  // const joinRoom = () => {
+  //    if (state.current_room_id !== "") {
+  //      socket.emit("join_room", state.current_room_id);
+  //    }
+  // };
+
   const sendMessage = (e) => {
     e.preventDefault();
-    console.log('Username: ', state.username);
-    socket.emit("send_message", {text: document.getElementById('current_message').value,
-    created_by: state.username, created_at: new Date().toLocaleString()});
+
+    const dataToSend = {
+      message: {text: document.getElementById('current_message').value,
+                created_by: state.username, 
+                created_at: new Date().toLocaleString()},
+      language: state.language,
+      friend_language: state.friend_language,
+      room_id: state.current_room_id
+    };
+
+    socket.emit("send_message", dataToSend);
     const newState = JSON.parse(JSON.stringify(state));
-    newState.messages.push({text: document.getElementById('current_message').value,
-    created_by: state.username, created_at: new Date().toLocaleString()});
+    newState.messages.push(dataToSend.message);
     setState(newState);
     document.getElementById('current_message').value = '';
-  }
+  };
 
   useEffect(() =>{
     socket.on('receive_message', (data) =>{
@@ -51,24 +64,24 @@ const ChatRoom = (props) => {
 
 
 
-  const handleSendMessage = () => { 
-    console.log('current room id: ', current_room_id)
-    axios.post('http://localhost:3000/messages', { 
-      room_id: current_room_id,
-      text: document.getElementById('current_message').value,
-      created_by: state.username,
-      created_at: new Date().toLocaleString(),
-    })
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-  };
+  // const handleSendMessage = () => { 
+  //   console.log('current room id: ', current_room_id)
+  //   axios.post('http://localhost:3000/messages', { 
+  //     room_id: current_room_id,
+  //     text: document.getElementById('current_message').value,
+  //     created_by: state.username,
+  //     created_at: new Date().toLocaleString(),
+  //   })
+  //   .then(function (response) {
+  //     console.log(response);
+  //   })
+  //   .catch(function (error) {
+  //     console.log(error);
+  //   });
+  // };
 
 
-  if (state.messages.length){
+  // if (state.messages.length){
     return (
       <div className="chat_box_container">
         <div className="message_box_container">
@@ -83,11 +96,11 @@ const ChatRoom = (props) => {
       </div>
     )
     }
-  else {
-    return (
-      <p>No messages!</p>
-    )
-  }
-};
+  // else {
+  //   return (
+  //     <p>No messages!</p>
+  //   )
+  // }
+// };
 
 export default ChatRoom; 
