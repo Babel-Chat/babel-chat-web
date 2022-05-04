@@ -5,6 +5,7 @@ const cors = require("cors");
 const PORT = 3000;
 const loginRouter = require('./routers/loginRouter.js');
 const signupRouter = require('./routers/signupRouter.js');
+const messagesRouter = require('./routers/messagesRouter.js');
 
 // Parsing
 app.use(cors());
@@ -40,7 +41,7 @@ app.use(express.static('client'));
 // Route Imports
 app.use('/login', loginRouter);
 app.use('/signup', signupRouter);
-
+app.use('/messages', messagesRouter);
 // Landing
 app.get("/", (req, res) => {
   return res.status(200).sendFile(path.resolve(__dirname, '../index.html'))
