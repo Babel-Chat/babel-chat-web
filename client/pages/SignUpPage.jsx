@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import {Link, Redirect} from 'react-router-dom';
+import {Link, Redirect, useNavigate} from 'react-router-dom';
+import axios from 'axios';
 
 const SignupPage = (props) => {
-
+  const navigate = useNavigate();
   const submitHandler = (e) => {
     e.preventDefault();
 
@@ -16,16 +17,17 @@ const SignupPage = (props) => {
     axios.post('http://localhost:3000/signup', signUpInfo)
       .then(function (response) {
         console.log(response);
+        navigate('/');
       })
       .catch(function(error){
         console.log(error);
       });
-
-      // redirect
+    console.log('Made Axios Request');
+    
   }
 
   return (
-    <div> 
+    <div id="signup-page"> 
     <h1>Sign Up</h1>
       <div>
         <form id="signup-input">
@@ -41,9 +43,7 @@ const SignupPage = (props) => {
                 <option value="es">Spanish</option>
               </select>
           </div>
-          <Link to='/' >
-            <button id="signup-submit" type="submit" onSubmit={submitHandler}>Sign Up</button>
-          </Link>
+            <button id="signup-submit" onClick={submitHandler}>Sign Up</button>
         </form>
       </div>
     </div>
