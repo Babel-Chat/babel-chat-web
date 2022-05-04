@@ -14,7 +14,7 @@ const dbController = {};
 
   */
 dbController.getMessages = async (req, res, next) => {
-  const { room_id, language } = req.params;
+  const { room_id, language } = req.query;
   const params = [room_id];
 
   try {

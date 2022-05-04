@@ -4,7 +4,7 @@ const dbController = require('../controllers/dbController.js')
 const messagesRouter = Router();
 
 //get the messages
-messagesRouter.get('/:room_id/:language',
+messagesRouter.get('/',
  dbController.getMessages,
  (req,res) => {
     res.status(200).json(res.locals.data);

@@ -15,7 +15,7 @@ const MainPage = (props) => {
       </div>
       <div> 
         <ChatRoom messages={props.state.messages} setState={props.setState}/>
-        <ChatsMenu chats={props.state.chats} language={props.state.language} setState={props.setState}/>
+        <ChatsMenu state={props.state} chats={props.state.chats} language={props.state.language} setState={props.setState}/>
       </div>
     </div>
   )

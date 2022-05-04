@@ -1,21 +1,22 @@
 import React from 'react';
 import axios from 'axios';
 
+
 const ChatsMenu = (props) => {
-  const {setState, state} = props;
-  const {chats, language} = props; 
+  const {setState, state, chats, language} = props;
   console.log('chats: ', chats);
   
   const chatSelectHandler = (room_id) => {
-    axios.get('http://localhost:3000/messages', {
+    axios.get(`http://localhost:3000/messages/`, {
       params: {
         room_id: room_id,
         language: language
       }
     })
     .then(data => {
+      console.log('data.data: ', data.data);
       const newState = JSON.parse(JSON.stringify(state));
-      newState.messages = JSON.parse(data);
+      newState.messages = data.data;
       newState.current_room_id = room_id;
       setState(newState);
       // props.state.messages = JSON.parse(data);
