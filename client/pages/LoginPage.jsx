@@ -4,12 +4,13 @@ import axios from 'axios';
 import '../styles/styles.scss';
 
 const LoginPage = (props) => {
+  const {setState, state} = props;
   const navigate = useNavigate();
   // deconstruct props
-  const {isLoggedIn, user_id, language} = props;
+  // const {isLoggedIn, user_id, language} = props.state;
   // login functionality
-  const handleLogin = () => {
-    
+  const handleLogin = (e) => {
+    e.preventDefault();
     const loginInfo = {
       username: document.getElementById('username').value,
       password: document.getElementById('password').value
@@ -17,11 +18,14 @@ const LoginPage = (props) => {
 
     axios.post('http://localhost:3000/login/', loginInfo)
       .then(data => {
-        // props.state.isLoggedIn = data.true;
-        // props.state.user_id = data.user_id;
-        // props.state.language = data.language;
-        // props.state.chats = data.chats;
-
+        console.log(data.data);
+        const newState = JSON.parse(JSON.stringify(state));
+        newState.isLoggedIn = true;
+        newState.user_id = data.data.user_id;
+        newState.language = data.data.language;
+        newState.chats = data.data.chats;
+        setState(newState);
+        
         navigate('/main');
       })
       .catch(error => {
@@ -30,6 +34,7 @@ const LoginPage = (props) => {
     }
   return (
     <div id="login-page">
+      <h1>International Chat</h1>
       <div className="login-container">
         <form id="login-inputs">
           <input id="username" type="text" placeholder="Username" required></input>

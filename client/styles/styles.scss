@@ -1,4 +1,48 @@
 * {
   padding: 0px;
   margin: 0px;
+  background-color: #FAF9F6;
 }
+
+#login-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  #login-inputs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+#main-page{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#chats {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userButton {
+  padding: 20px 50px;
+  margin: 10px;
+  background: white;
+  border: 1px solid cyan;
+  border-radius: 5px;
+  transition-duration: .3s;
+  color: rgb(17, 17, 17);
+  font-weight: bold;
+}
+
+.userButton:hover {
+  background: cyan;
+  color: white;
+} 

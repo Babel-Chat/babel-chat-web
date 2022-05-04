@@ -5,17 +5,17 @@ import ChatsMenu from '../components/chatsMenu';
 import ChatRoom from '../components/chatRoom';
 
 const MainPage = (props) => {
-  
+  console.log('Props: ', props);
 
   return (
-    <div>
+    <div id="main-page">
       {/* Head of Main Page */}
       <div>
         <h1>International Chat</h1>
       </div>
       <div> 
-        <ChatRoom />
-        <ChatsMenu />
+        <ChatRoom messages={props.state.messages} setState={props.setState}/>
+        <ChatsMenu chats={props.state.chats} language={props.state.language} setState={props.setState}/>
       </div>
     </div>
   )
