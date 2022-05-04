@@ -18,12 +18,12 @@ const LoginPage = (props) => {
 
     axios.post('http://localhost:3000/login/', loginInfo)
       .then(data => {
-        console.log(data);
+        console.log(data.data);
         const newState = JSON.parse(JSON.stringify(state));
         newState.isLoggedIn = true;
-        newState.user_id = data.user_id;
-        newState.language = data.language;
-        newState.chats = data.chats;
+        newState.user_id = data.data.user_id;
+        newState.language = data.data.language;
+        newState.chats = data.data.chats;
         setState(newState);
         
         navigate('/main');
