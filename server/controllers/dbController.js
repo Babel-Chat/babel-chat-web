@@ -63,7 +63,7 @@ dbController.getChats = async (req, res, next) => {
           `
           const friendInfo = await db.query(friendQuery, friendParams)
           chat.friend = friendInfo.rows[0].name;
-          chat.friendLanguage = friendInfo.rows[0].language;
+          chat.friendLanguage = friendInfo.rows[0].language;""
         } catch (error) {
           return next({
             log: `Express error in dbController.getChats middleware ${error}`,
