@@ -6,7 +6,7 @@ const ChatsMenu = (props) => {
   const {setState, state} = props;
   console.log('chats: ', state.chats);
   
-  const chatSelectHandler = (room_id) => {
+  const chatSelectHandler = (room_id, friend_language) => {
     axios.get(`http://localhost:3000/messages/`, {
       params: {
         room_id: room_id,
@@ -18,6 +18,7 @@ const ChatsMenu = (props) => {
       const newState = JSON.parse(JSON.stringify(state));
       newState.messages = data.data;
       newState.current_room_id = room_id;
+      newState.friend_language = friend_language;
       setState(newState);
     })
   };
@@ -25,7 +26,7 @@ const ChatsMenu = (props) => {
   const buttons = [];
   // otherUsers is an object with an id property and a username property
   state.chats.forEach(chat => {                                   // need to add proper chat_id
-    buttons.push(<button key={chat.room_id} className="userButton" onClick={()=> {chatSelectHandler(chat.room_id)}} otherusername={chat.friend} >{chat.friend}</button>)
+    buttons.push(<button key={chat.room_id} className="userButton" onClick={()=> {chatSelectHandler(chat.room_id, chat.friendLanguage)}} otherusername={chat.friend} >{chat.friend}</button>)
   });
   return (
     <div id="chats-menu">
