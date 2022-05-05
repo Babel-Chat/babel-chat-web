@@ -1,0 +1,18 @@
+CREATE TABLE users(
+user_id SERIAL PRIMARY KEY,
+email VARCHAR NOT NULL UNIQUE,
+name VARCHAR NOT NULL,
+password VARCHAR NOT NULL,
+language VARCHAR NOT NULL
+)
+
+CREATE TABLE chatrooms(
+room_id SERIAL PRIMARY KEY,
+user_id1 INTEGER,
+user_id2 INTEGER,
+FOREIGN KEY (user_id1) REFERENCES users(user_id),
+FOREIGN KEY (user_id2) REFERENCES users(user_id),
+en   NOT NULL,
+es VARCHAR NOT NULL,
+ko VARCHAR NOT NULL
+)
