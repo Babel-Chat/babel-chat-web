@@ -35,7 +35,7 @@ const SignupPage = (props) => {
             <input id="signup-username" placeholder="Username"></input>
             <input id="email" placeholder="E-mail" ></input>
             <input id="signup-password" placeholder="Password" ></input>
-            <div>
+            <div className="selet-box">
               <label>Select your Language</label>
                 <select id="selectLanguage">
                   <option value="none" selected disabled hidden>Language</option>
@@ -44,8 +44,11 @@ const SignupPage = (props) => {
                   <option value="es">Spanish</option>
                 </select>
             </div>
-              <button id="signup-submit" onClick={submitHandler}>Sign Up</button>
-              <button><Link to="/">Login</Link></button>
+            <div className="signup-botton-container">
+              <button className="signup-button" id="signup-submit" onClick={submitHandler}>Sign Up</button>
+              <div id="back-to-login"><Link to="/">Back to Login</Link></div>
+              {/* <button className="signup-button"><Link to="/">Back to Login</Link></button> */}
+            </div>
           </form>
         </div>
       </div>

@@ -36,7 +36,7 @@ const LoginPage = (props) => {
   return (
     <div id="login-page">
       <div id="login-page-container">
-        <h1>International Chat</h1>
+        <h1>Babel Chat</h1>
         <div className="login-container">
           <form id="login-inputs">
             <input id="username" type="text" placeholder="Username" required></input>

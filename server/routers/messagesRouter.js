@@ -11,5 +11,14 @@ messagesRouter.get('/',
  }
 ) 
 
+// will need to update the messages 
+messagesRouter.patch('/',
+ // add middle ware **
+ dbController.addMessages,
+ (req,res) => {
+   res.status(200)
+ }
+)
+
 
 module.exports = messagesRouter

@@ -13,8 +13,8 @@ const App = () => {
     user_id: null,
     username: null,
     language: null,
-    chats: [], // array 
-    messages: [],
+    chats: [], // array of {room_id: 'room_id', friend: 'other user's name', friend_language: 'other user's language' }
+    messages: [], // array of {text: string, created_at: timestamp, created_by: username}
     friend_language: null,
     current_room_id: null
   });
