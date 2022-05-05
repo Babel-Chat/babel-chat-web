@@ -7,6 +7,7 @@ const loginRouter = require('./routers/loginRouter.js');
 const signupRouter = require('./routers/signupRouter.js');
 const messagesRouter = require('./routers/messagesRouter.js');
 const axios = require('axios');
+require('dotenv').config();
 
 // Parsing
 app.use(cors());
@@ -42,7 +43,7 @@ io.on("connection", (socket) => {
       },
       { 
         headers: {
-        "Authorization": "Bearer ab4ab032-e8d1-44bb-a964-5834ff0ce995",
+        "Authorization": process.env.TRANSLATE_KEY,
         "Content-Type": "application/json",
       }
     })
@@ -51,7 +52,29 @@ io.on("connection", (socket) => {
       console.log('API Response: ', response.data);
       translatedMessage.text = response.data.target.text;
       socket.broadcast.emit("receive_message", translatedMessage);
-      // socket.to(data.room_id).emit("receive_message", translatedMessage);
+
+      // socket.to(data.room_id).broadcast.emit("receive_message", translatedMessage);
+
+      //
+      axios.patch('http://localhost:3000/messages',{
+        room_id: data.room_id, 
+        sender: {
+          language: data.language,
+          message: data.message
+        },
+        receiver: {
+          language: data.friend_language,
+          message: translatedMessage
+        }
+      })
+      .then((response) => {
+        console.log("patch to messages response: ", response.data)
+      })
+      .catch((error) => {
+        console.log('Error: ', error)
+      });
+
+
     })
     .catch((error) => {
         console.log('Error: ', error);
@@ -67,7 +90,7 @@ io.on("connection", (socket) => {
 
     // send only translated message data
 
-    // add translated language to database
+    
   });
 });
 

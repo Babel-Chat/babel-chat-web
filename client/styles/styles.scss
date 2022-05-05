@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
 
-$primary: rgb(30, 117, 116);
-$primaryLight: rgba(30, 117, 116, 0.5);
+$primary: rgb(22, 134, 133);
+$primaryLight: rgba(36, 151, 149, 0.7);
 $secondary: rgb(250, 118, 182);
 $hyperlink: rgb(161, 255, 253);
 $buttonColor: rgb(2, 155, 155);
@@ -11,13 +11,14 @@ $darkPrimary: rgb(19, 71, 71);
   padding: 0px;
   margin: 0px;
   font-family: 'Varela Round', sans-serif;
-  color: #FFF;
 }
 
 html {
   background: linear-gradient(120deg, $primary, $secondary);
-  overflow: hidden;
+  overflow: scroll;
   height: 100vh;
+  background-attachment: fixed;
+
 }
 
 h1 {
@@ -34,7 +35,7 @@ h1 {
 }
 
 #login-page-container, #signup-page-container {
-  padding: 1em;
+  padding: 2em;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -61,15 +62,15 @@ h1 {
       border: 0px;
       outline: none;
       border-radius: 0.2em;
-      background-color: rgba(255, 255, 255, 0.5);
-      color: rgba(255, 255, 255, 0.9);
+      background-color: rgba(255, 255, 255, 0.6);
+      color: rgba(255, 255, 255, 1);
     }
     
     input:focus {
-      background-color: rgba(255, 255, 255, 0.6);
+      background-color: rgba(255, 255, 255, 0.7);
     }
 
-    .login-button {
+    .login-button, .signup-button {
       padding: 0 50px;
       height: 30px;
       margin: 10px;
@@ -81,7 +82,7 @@ h1 {
       font-weight: bold;
     }
 
-    .login-button:hover {
+    .login-button:hover,.signup-button:hover {
       background: $primaryLight;
       color: rgba(255, 255, 255, 0.9);
       box-shadow: 1px 1px 12px rgba(255, 255, 255, 0.5);
@@ -101,17 +102,72 @@ h1 {
 
     }
 
-    a:link {
+    a {
       color: $hyperlink;
+      text-decoration: none;
     }
-    a:visited, a:hover {
-      color: $hyperlink;
+
+    a:hover {
+      text-shadow: 0px 0px 20px rgba(255, 255, 255, 0.8);
     }
   }
 }
 
 #signup-page{
+  .selet-box {
+    margin-top: 1em;
+  }
+  
+  label{
+    font-size: 1.2em;
+    color: #FFF;
+    padding-right: 15px;
+  }
 
+  #selectLanguage {
+    width: 100px;
+    height: 30px;
+    border: none;
+    outline: none;
+    border-radius: 0.2em;
+    background-color: rgba(255, 255, 255, 0.7);
+  }
+
+  option {
+    background-color: rgba(255, 255, 255, 0.7);
+  }
+
+  .signup-botton-container {
+    padding-top: 3em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #back-to-login {
+  margin-top: 10px;
+  }
+  a {
+    color: $hyperlink;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-shadow: 0px 0px 20px rgba(255, 255, 255, 0.8);
+  }
+  
+}
+
+#chats-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  h3 {
+    color: #FFF;
+    font-size: 1.5em;
+    margin-bottom: 1em;
+  }
 
 }
 
@@ -123,6 +179,7 @@ h1 {
 }
 
 .userButton {
+  width: 150px;
   padding: 20px 50px;
   margin: 10px;
   background: rgba(255, 255, 255, 0.7);
@@ -138,32 +195,50 @@ h1 {
   color: white;
 } 
 
+.userButton:focus{
+  background: $buttonColor;
+  color: white;
+}
+
 .chat_box_container{
+  display: flex;
+  flex-direction: column;
+  align-items: space-between;
   padding: 30px 20px;
-  border: 1px solid rgb(17, 17, 17);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  background-color: rgba(255, 255, 255, 0.2);
+  height: 500px;
+  width: 350px;
   border-radius: 10px;
-  overflow: scroll;
+  overflow-y: scroll;
+  position: relative;
+  box-shadow: 0 4px 28px rgba(123,151,158,.25);
+  
 }
 
 .message_box_container{
   display: flex;
   flex-direction: column;
+  scrollbar-color: rebeccapurple green;
+  scrollbar-width: thin;
 }
 
 .message_box_sent {
   align-self: flex-start;
   border: 1px solid rgb(94, 94, 255);
-  background: rgb(94, 94, 255);
+  background: rgba(94, 94, 255, 0.6);
   border-radius: 15px;
   padding: 10px;
+  margin: 3px;
 }
 
 .message_box_received {
   align-self: flex-end;
   border: 1px solid rgb(161,161,161);
-  padding: 10px;
+  background: rgba(255, 255, 255, 0.6);
   border-radius: 15px;
-  background: rgb(161, 161, 161);
+  padding: 10px;
+  margin: 3px;
 }
 
 .created_by {
@@ -178,6 +253,40 @@ h1 {
 .created_at {
   font-size: 10px;
 }
+
+.message_send_container {
+  margin-top: 5px;
+}
+
+#current_message_form{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#current_message{
+  margin: 0.3em;
+  padding-left: 0.5em;
+  height: 30px;
+  width: 300px;
+  border: 0px;
+  outline: none;
+  border-radius: 0.2em;
+  background-color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 1);
+}
+
+#current_message_submit{
+  width: 80px;
+  height: 30px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 0px 10px;
+  border-radius: 0.5em;
+  border: none;
+}
+
+
 
 #main-page-container{
   display: grid;
@@ -210,3 +319,5 @@ h1 {
 #header-titles {
   display: flex;
 }
+
+

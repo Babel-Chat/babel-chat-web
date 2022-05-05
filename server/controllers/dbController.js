@@ -13,6 +13,56 @@ const dbController = {};
   }]
 
   */
+dbController.addMessages = async (req, res, next) => {
+  const { room_id, sender, receiver } = req.body;
+  const getMessagesParams = [room_id];
+// chatroom table has messages for english, spanish, and korean and chat room id
+
+  
+  try {
+    const getMessagesQuery = 
+    `SELECT * FROM chatrooms
+    WHERE room_id=$1;`;
+    
+    const messages = await db.query(getMessagesQuery, params)
+    const senderMessages = JSON.parse(messages.rows[0][sender.language]);
+    senderMessages.push(sender.message)
+    JSON.stringify(senderMessages);
+    console.log("--------------------SenderMessages is : ", senderMessages)
+    const receiverMessages = JSON.parse(messages.rows[0][receiver.language]);
+    receiverMessages.push(receiver.message);
+    JSON.stringify(receiverMessages);
+    console.log("ReceiverMessages is : ", receiverMessages)
+
+
+    const updateMessageParams = [
+      room_id, 
+      sender.language, 
+      senderMessages, 
+      receiver.language, 
+      receiverMessages
+    ]
+    const updateMessageQuery = `
+    UPDATE chatrooms
+    SET $2 = $3, $4 = $5
+    WHERE room_id = $1;
+    `;
+
+    const update = await db.query(updateMessageQuery, updateMessageParams)
+    console.log('post update in database: ', update);
+    return next();
+
+  } catch (error) {
+    return next({
+      log: `Express error in dbController.addMessages middleware ${error}`,
+      status: 400,
+      message: {
+        error: `dbController.addMessages: Error: ${error} `
+      }
+    })
+  }
+}
+
 dbController.getMessages = async (req, res, next) => {
   const { room_id, language } = req.query;
   const params = [room_id];

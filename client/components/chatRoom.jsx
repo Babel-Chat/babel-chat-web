@@ -75,33 +75,18 @@ const ChatRoom = (props) => {
 
 
 
-  // const handleSendMessage = () => { 
-  //   console.log('current room id: ', current_room_id)
-  //   axios.post('http://localhost:3000/messages', { 
-  //     room_id: current_room_id,
-  //     text: document.getElementById('current_message').value,
-  //     created_by: state.username,
-  //     created_at: new Date().toLocaleString(),
-  //   })
-  //   .then(function (response) {
-  //     console.log(response);
-  //   })
-  //   .catch(function (error) {
-  //     console.log(error);
-  //   });
-  // };
-
-
   if (selectedRoom){
     return (
-      <div className="chat_box_container">
-        <div className="message_box_container">
-          { messagesBox }
+      <div>
+        <div className="chat_box_container">
+          <div className="message_box_container">
+            { messagesBox }
+          </div>
         </div>
         <div className="message_send_container">
-          <form>
+          <form id="current_message_form">
             <input id="current_message" type="text"></input>
-            <button type="submit" onClick={sendMessage}>Submit</button>
+            <button id="current_message_submit" type="submit" onClick={sendMessage}>SEND</button>
           </form>
         </div>
       </div>
